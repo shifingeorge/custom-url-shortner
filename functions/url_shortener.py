@@ -1,6 +1,7 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory, redirect  # Add redirect here
 import string
 import random
+import os
 
 app = Flask(__name__)
 
@@ -24,13 +25,7 @@ def home():
         url_mapping[short_code] = original_url
         return jsonify({'shortened_url': f'shifiyy.link/{short_code}'}), 200
 
-    return '''
-        <form method="POST">
-            <input type="text" name="original_url" placeholder="Enter the original URL" required>
-            <input type="text" name="custom_code" placeholder="Enter custom short code (optional)">
-            <button type="submit">Shorten URL</button>
-        </form>
-    '''
+    return send_from_directory('public', 'index.html')
 
 @app.route('/<short_code>')
 def redirect_to_url(short_code):
