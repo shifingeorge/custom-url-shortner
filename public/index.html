@@ -7,13 +7,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Shifiyy URL Shortener</h1>
-    <form id="urlForm">
-        <input type="text" id="originalUrl" placeholder="Enter the original URL" required>
-        <input type="text" id="customCode" placeholder="Enter custom short code (optional)">
-        <button type="submit">Shorten URL</button>
-    </form>
-    <div id="result"></div>
+    <div class="container">
+        <h1>Shifiyy URL Shortener</h1>
+        <form id="urlForm">
+            <input type="url" id="originalUrl" placeholder="Enter the original URL" required>
+            <input type="text" id="customCode" placeholder="Enter custom short code (optional)">
+            <button type="submit">Shorten URL</button>
+        </form>
+        <div id="result"></div>
+    </div>
     <script>
         document.getElementById('urlForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -29,7 +31,7 @@
             });
 
             const data = await response.json();
-            document.getElementById('result').innerText = data.shortened_url || data.error;
+            document.getElementById('result').innerText = data.shortened_url || data.error || 'An error occurred';
         });
     </script>
 </body>
