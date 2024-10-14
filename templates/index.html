@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom URL Shortener</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Custom URL Shortener</h1>
+        <form id="urlForm">
+            <input type="text" id="originalUrl" placeholder="Enter the original URL" required>
+            <input type="text" id="customCode" placeholder="Custom short code (optional)">
+            <button type="submit">Shorten URL</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script>
+        document.getElementById('urlForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const originalUrl = document.getElementById('originalUrl').value;
+            const customCode = document.getElementById('customCode').value;
+
+            const response = await fetch('/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ original_url: originalUrl, custom_code: customCode }),
+            });
+
+            const data = await response.json();
+            document.getElementById('result').innerText = data.shortened_url || data.error;
+        });
+    </script>
+</body>
+</html>
